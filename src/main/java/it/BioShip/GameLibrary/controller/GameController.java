@@ -32,6 +32,13 @@ public class GameController
         return gameService.getGameById(gameId);
     }
 
+    @GetMapping("/getAllFavoriteGames")
+    public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
+    {
+        return gameService.getAllFavoriteGames(userId);
+    }
+
+
     @PostMapping("/addNewGame")
     public ResponseEntity<?> addNewGame(@RequestBody GameRequest gameRequest)
     {

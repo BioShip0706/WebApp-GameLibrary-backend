@@ -35,13 +35,14 @@ public class FavoriteService
     @Transactional
     public ResponseEntity<?> addNewFavoriteGame(int userId, long gameId)
     {
-        Favorite newFavorite = new Favorite();
         if(gameRepository.existsById(gameId) && userRepository.existsById(userId))
         {
+            Favorite newFavorite = new Favorite();
             Game specificGame = gameRepository.findById(gameId).orElseThrow();
             User specificUser = userRepository.findById(userId).orElseThrow();
             newFavorite.setFavoriteId(new FavoriteId(specificGame,specificUser));
 
+            favoriteRepository.save(newFavorite);
             return new ResponseEntity<>("Gioco aggiunto ai preferiti!",HttpStatus.OK);
         }
         else
@@ -51,8 +52,28 @@ public class FavoriteService
 
     }
 
+    @Transactional
     public ResponseEntity<?> deleteFavoriteGame(int userId, long gameId)
     {
+        if(gameRepository.existsById(gameId) && userRepository.existsById(userId))
+        {
+            Game specificGame = gameRepository.findById(gameId).orElseThrow();
+            User specificUser = userRepository.findById(userId).orElseThrow();
+            FavoriteId favoriteId = new FavoriteId(specificGame,specificUser);
 
+            if(favoriteRepository.existsById(favoriteId))
+            {
+                favoriteRepository.deleteById(favoriteId);
+                return new ResponseEntity<>("Gioco rimosso dai preferiti!",HttpStatus.OK);
+            }
+            else
+            {
+                return new ResponseEntity<>("Impossibile rimuovere dai preferiti",HttpStatus.OK);
+            }
+        }
+        else
+        {
+            return new ResponseEntity<>("Impossibile rimuovere dai preferiti", HttpStatus.BAD_REQUEST);
+        }
     }
 }

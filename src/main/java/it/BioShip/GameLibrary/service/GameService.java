@@ -5,6 +5,7 @@ import it.BioShip.GameLibrary.entity.Game;
 import it.BioShip.GameLibrary.entity.Genre;
 import it.BioShip.GameLibrary.entity.Platform;
 import it.BioShip.GameLibrary.payload.request.GameRequest;
+import it.BioShip.GameLibrary.payload.response.GameCardResponse;
 import it.BioShip.GameLibrary.repository.GameRepository;
 import it.BioShip.GameLibrary.repository.GenreRepository;
 import it.BioShip.GameLibrary.repository.PlatformRepository;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +31,21 @@ public class GameService
     @Transactional
     public ResponseEntity<?> getAllGames()
     {
-        List<Game> allGames = gameRepository.findAll(); //gameRepository.findAll() mi servono ordinati
-        return new ResponseEntity(allGames, HttpStatus.OK);
+        //List<Game> allGames = gameRepository.findAll(); //gameRepository.findAll() mi servono
+        //return new ResponseEntity(allGames, HttpStatus.OK);
+
+        List<GameCardResponse> gameCards = gameRepository.findAllGameCards();
+        return new ResponseEntity<>(gameCards,HttpStatus.OK);
+    }
+
+    @Transactional
+    public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
+    {
+        //List<Game> allGames = gameRepository.findAll(); //gameRepository.findAll() mi servono
+        //return new ResponseEntity(allGames, HttpStatus.OK);
+
+        List<GameCardResponse> getAllFavoriteGames = gameRepository.findAllFavoriteGames(userId);
+        return new ResponseEntity<>(getAllFavoriteGames,HttpStatus.OK);
     }
 
     @Transactional

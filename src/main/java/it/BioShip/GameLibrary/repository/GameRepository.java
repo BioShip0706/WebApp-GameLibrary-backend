@@ -1,6 +1,7 @@
 package it.BioShip.GameLibrary.repository;
 
 import it.BioShip.GameLibrary.entity.Game;
+import it.BioShip.GameLibrary.payload.response.GameCardResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +35,9 @@ public interface GameRepository extends JpaRepository<Game,Long>
 
     List<Game> findTop10ByTitleStartingWith(String lettere);
 
+    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.imageURL,g.score) FROM Game g")
+    List<GameCardResponse> findAllGameCards();
+
+    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.imageURL,g.score) FROM Game g JOIN Favorite f ON g.id = f.favoriteId.game.id AND f.favoriteId.user.id = :userId")
+    List<GameCardResponse> findAllFavoriteGames(int userId);
 }
