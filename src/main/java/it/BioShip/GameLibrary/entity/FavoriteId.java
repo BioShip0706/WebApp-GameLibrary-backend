@@ -20,4 +20,9 @@ public class FavoriteId
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public FavoriteId(Game game, User user) {
+        this.game = game;
+        this.user = user;
+    }
 }
