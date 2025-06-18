@@ -7,15 +7,20 @@ import it.BioShip.GameLibrary.entity.Platform;
 import it.BioShip.GameLibrary.payload.request.GameRequest;
 import it.BioShip.GameLibrary.payload.response.GameCardResponse;
 import it.BioShip.GameLibrary.payload.response.GameFullResponse;
+import it.BioShip.GameLibrary.payload.response.GameSearchResponse;
 import it.BioShip.GameLibrary.repository.GameRepository;
 import it.BioShip.GameLibrary.repository.GenreRepository;
 import it.BioShip.GameLibrary.repository.PlatformRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -124,14 +129,18 @@ public class GameService
 
     public ResponseEntity<?> searchGame(String lettere)
     {
-        List<Game> games = gameRepository.findTop10ByTitleStartingWith(lettere);
+        //List<Game> games = gameRepository.findTop10ByTitleStartingWith(lettere);
 
         /*if(!games.isEmpty())
         {
             return new ResponseEntity<>(games,HttpStatus.OK);
         }
 
+
         return new ResponseEntity<>(games,HttpStatus.NOT_FOUND);*/
+
+        Pageable tenResults = PageRequest.of(0, 10);
+        List<GameSearchResponse> games = gameRepository.searchGamesStartingWith(lettere, tenResults);
 
         return new ResponseEntity<>(games,HttpStatus.OK);
     }

@@ -6,18 +6,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class GameCardResponse
+public class GameSearchResponse
 {
     private long id;
     private String title;
     private String developer;
     private LocalDate releaseDate;
-    private String imageURL;
     private Double score;
 }
