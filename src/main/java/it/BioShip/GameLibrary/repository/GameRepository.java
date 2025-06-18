@@ -2,6 +2,7 @@ package it.BioShip.GameLibrary.repository;
 
 import it.BioShip.GameLibrary.entity.Game;
 import it.BioShip.GameLibrary.payload.response.GameCardResponse;
+import it.BioShip.GameLibrary.payload.response.GameFullResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface GameRepository extends JpaRepository<Game,Long>
+public interface GameRepository extends JpaRepository<Game,Long>, GameRepositoryCustom
 {
 
     List<Game> findAllByOrderByIdAsc();
@@ -28,6 +29,8 @@ public interface GameRepository extends JpaRepository<Game,Long>
     List<Game> findByPlatformsIds(List<Long> platformIds, long platformCount);
 
 
+
+
     //Optional findByTitleLike(String lettere);
 
     //@Query("SELECT g FROM Game g WHERE g.title LIKE CONCAT(:lettere, '%') LIMIT 10")
@@ -40,4 +43,15 @@ public interface GameRepository extends JpaRepository<Game,Long>
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.imageURL,g.score) FROM Game g JOIN Favorite f ON g.id = f.favoriteId.game.id AND f.favoriteId.user.id = :userId")
     List<GameCardResponse> findAllFavoriteGames(int userId);
+
+
+    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameFullResponse(g.id,g.title,g.description,g.developer,g.publisher,g.releaseDate,g.score,g.imageURL) " +
+            "FROM Game g WHERE g.id = :gameId")
+    GameFullResponse getFullGameInfoById(long gameId);
+
+    @Query("SELECT g FROM Game g LEFT JOIN FETCH g.genres WHERE g.id = :gameId")
+    Game findByIdFullFetchGenres(long gameId);
+
+    @Query("SELECT g FROM Game g LEFT JOIN FETCH g.platforms WHERE g.id = :gameId")
+    Game findByIdFullFetchPlatforms(long gameId);
 }

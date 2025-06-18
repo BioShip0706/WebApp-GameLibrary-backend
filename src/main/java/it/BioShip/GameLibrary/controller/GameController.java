@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -46,9 +47,13 @@ public class GameController
     }
 
     @GetMapping("/filterGames")
-    public ResponseEntity<?> filterGames(@RequestParam(required = false) List<Long> genreIds, @RequestParam(required = false) List<Long> platformIds)
+    public ResponseEntity<?> filterGames(@RequestParam(required = false) List<Long> genreIds,
+                                         @RequestParam(required = false) List<Long> platformIds,
+                                         @RequestParam(required = false) String scoreOrder,
+                                         @RequestParam(required = false) String releaseDateOrder,
+                                         @RequestParam(required = false) List<Long> favoriteIds)
     {
-        return gameService.filterGames(genreIds,platformIds);
+        return gameService.filterGames(genreIds,platformIds, scoreOrder, releaseDateOrder, favoriteIds);
     }
 
     @GetMapping("/searchGame/{lettere}")
