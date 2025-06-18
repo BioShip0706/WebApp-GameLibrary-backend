@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -63,10 +64,10 @@ public class GameService
         newGame.setScore(gameRequest.getScore());
         newGame.setImageURL(gameRequest.getImageURL());
 
-        List<Platform> platformList = platformRepository.findAllById(gameRequest.getPlatformsIds()); //Game vuole oggetti Platform, che ottengo dal repository passandogli tutti gli id messi nella request
+        Set<Platform> platformList = (Set<Platform>) platformRepository.findAllById(gameRequest.getPlatformsIds()); //Game vuole oggetti Platform, che ottengo dal repository passandogli tutti gli id messi nella request
         newGame.setPlatforms(platformList);
 
-        List<Genre> genreList = genreRepository.findAllById(gameRequest.getGenresIds());
+        Set<Genre> genreList = (Set<Genre>) genreRepository.findAllById(gameRequest.getGenresIds());
         newGame.setGenres(genreList);
 
 
@@ -94,7 +95,7 @@ public class GameService
         }*/
 
         List<Game> filteredGames = gameRepository.findFilteredGames(genreIds,platformIds,scoreOrder,releaseDateOrder,favoriteids);
-        return new ResponseEntity<>(null,HttpStatus.OK);
+        return new ResponseEntity<>(filteredGames,HttpStatus.OK);
 
     }
 

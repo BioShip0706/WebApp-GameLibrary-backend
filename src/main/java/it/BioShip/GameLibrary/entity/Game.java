@@ -8,6 +8,7 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -42,10 +43,10 @@ public class Game
     private String imageURL;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Platform> platforms;
+    private Set<Platform> platforms;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private List<Genre> genres;
+    private Set<Genre> genres;
 
 
 }

@@ -52,16 +52,16 @@ public class GameRepositoryImpl implements GameRepositoryCustom
 
         List<Order> orders = new ArrayList<>();
 
-        if("asc".equalsIgnoreCase(scoreOrder))
+        if("asc".equalsIgnoreCase(scoreOrder)) //pe score ascendente
         {
             orders.add(criteriaBuilder.asc(root.get("score")));
         }
-        else if("desc".equalsIgnoreCase(scoreOrder))
+        else if("desc".equalsIgnoreCase(scoreOrder)) //desc
         {
             orders.add(criteriaBuilder.desc(root.get("score")));
         }
 
-        if("asc".equalsIgnoreCase(releaseDateOrder))
+        if("asc".equalsIgnoreCase(releaseDateOrder)) //uguale per releaseDate
         {
             orders.add(criteriaBuilder.asc(root.get("releaseDate")));
         }
@@ -74,7 +74,7 @@ public class GameRepositoryImpl implements GameRepositoryCustom
         {
             query.orderBy(orders);
         }
-
+        //System.out.println(entityManager.createQuery(query).getResultList());
         return  entityManager.createQuery(query).getResultList();
     }
 
