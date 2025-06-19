@@ -19,12 +19,25 @@ public class GameController
 {
 
     private final GameService gameService;
+    private final GameRepository gameRepository;
 
 
-    @GetMapping("/getAllGames")
+    /*@GetMapping("/getAllGames")
     public ResponseEntity<?> getAllGames()
     {
         return gameService.getAllGames();
+    }*/
+
+    @GetMapping("/getAllGameCardsByPage")
+    public ResponseEntity<?> getAllGameCardsByPage(@RequestParam int page, @RequestParam int perPage)
+    {
+        return gameService.getAllGameCardsByPage(page,perPage);
+    }
+
+    @GetMapping("/getCountOfAllGames")
+    public ResponseEntity<?> getCountOfAllGames()
+    {
+        return gameService.getCountOfAllGames();
     }
 
     @GetMapping("/getGameById/{gameId}")

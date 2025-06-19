@@ -62,4 +62,6 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
     Game findByIdFullFetchPlatforms(long gameId);
 
 
+    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.releaseDate,g.imageURL,g.score) FROM Game g")
+    Page<GameCardResponse> getAllGameCardsByPage(Pageable pageable);
 }

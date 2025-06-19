@@ -37,7 +37,7 @@ public class GameService
     private final GenreRepository genreRepository;
 
 
-    @Transactional
+    /*@Transactional
     public ResponseEntity<?> getAllGames()
     {
         //List<Game> allGames = gameRepository.findAll(); //gameRepository.findAll() mi servono
@@ -45,7 +45,7 @@ public class GameService
 
         List<GameCardResponse> gameCards = gameRepository.findAllGameCards();
         return new ResponseEntity<>(gameCards,HttpStatus.OK);
-    }
+    }*/
 
     @Transactional
     public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
@@ -144,5 +144,16 @@ public class GameService
         Page<GameSearchResponse> games = gameRepository.searchGamesStartingWith(lettere, tenResults);
 
         return new ResponseEntity<>(games.getContent(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getCountOfAllGames()
+    {
+        return new ResponseEntity<>(gameRepository.count(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> getAllGameCardsByPage(int page, int perPage)
+    {
+        Pageable pageable = PageRequest.of(page - 1,perPage); //parti da 1 (0) e voglio 30 giochi per pagina
+        return new ResponseEntity<>(gameRepository.getAllGameCardsByPage(pageable),HttpStatus.OK);
     }
 }
