@@ -64,9 +64,11 @@ public class GameController
                                          @RequestParam(required = false) List<Long> platformIds,
                                          @RequestParam(required = false) String scoreOrder,
                                          @RequestParam(required = false) String releaseDateOrder,
-                                         @RequestParam(required = false) List<Long> favoriteIds)
+                                         @RequestParam(required = false) List<Long> favoriteIds,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "10") int perPage) //size
     {
-        return gameService.filterGames(genreIds,platformIds, scoreOrder, releaseDateOrder, favoriteIds);
+        return gameService.filterGames(genreIds,platformIds, scoreOrder, releaseDateOrder, favoriteIds, page, perPage);
     }
 
     @GetMapping("/searchGame/{lettere}")
