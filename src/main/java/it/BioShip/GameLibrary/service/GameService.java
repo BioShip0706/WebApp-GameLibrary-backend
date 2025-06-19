@@ -14,6 +14,7 @@ import it.BioShip.GameLibrary.repository.PlatformRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -140,8 +141,8 @@ public class GameService
         return new ResponseEntity<>(games,HttpStatus.NOT_FOUND);*/
 
         Pageable tenResults = PageRequest.of(0, 10);
-        List<GameSearchResponse> games = gameRepository.searchGamesStartingWith(lettere, tenResults);
+        Page<GameSearchResponse> games = gameRepository.searchGamesStartingWith(lettere, tenResults);
 
-        return new ResponseEntity<>(games,HttpStatus.OK);
+        return new ResponseEntity<>(games.getContent(),HttpStatus.OK);
     }
 }

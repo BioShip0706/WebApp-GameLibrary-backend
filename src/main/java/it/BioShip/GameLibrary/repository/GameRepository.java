@@ -4,6 +4,7 @@ import it.BioShip.GameLibrary.entity.Game;
 import it.BioShip.GameLibrary.payload.response.GameCardResponse;
 import it.BioShip.GameLibrary.payload.response.GameFullResponse;
 import it.BioShip.GameLibrary.payload.response.GameSearchResponse;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -41,7 +42,7 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
     List<Game> findTop10ByTitleStartingWith(String lettere);
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id,g.title,g.developer,g.releaseDate,g.score) FROM Game g WHERE g.title LIKE CONCAT(:lettere, '%')")
-    List<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable pageable);
+    Page<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable tenResults);
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.releaseDate,g.imageURL,g.score) FROM Game g")
     List<GameCardResponse> findAllGameCards();
