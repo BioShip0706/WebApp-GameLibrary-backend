@@ -86,6 +86,7 @@ public class AuthenticationService {
 
 
         String jwtToken = jwtService.generateToken(user, user.getId());
+
         return new ResponseEntity(AuthenticationResponse.builder()
                 .id(user.getId())
                 .username(user.getUsername())
@@ -93,6 +94,7 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build(),
                 HttpStatus.OK);
+
     }
 
     private String[] authorities(Collection<? extends GrantedAuthority> auths){
