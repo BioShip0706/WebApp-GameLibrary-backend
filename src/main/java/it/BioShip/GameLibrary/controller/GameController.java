@@ -5,6 +5,7 @@ import it.BioShip.GameLibrary.repository.GameRepository;
 import it.BioShip.GameLibrary.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,14 @@ public class GameController
     public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
     {
         return gameService.getAllFavoriteGames(userId);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @DeleteMapping("deleteGameById")
+    public ResponseEntity<?> deleteGameById(@RequestParam long gameId)
+    {
+        return gameService.deleteGameById(gameId);
+
     }
 
 

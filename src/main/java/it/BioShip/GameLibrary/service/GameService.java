@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -158,5 +159,17 @@ public class GameService
     {
         Pageable pageable = PageRequest.of(page - 1,perPage); //parti da 1 (0) e voglio 30 giochi per pagina
         return new ResponseEntity<>(gameRepository.getAllGameCardsByPage(pageable),HttpStatus.OK);
+    }
+
+
+    public ResponseEntity<?> deleteGameById(long gameId)
+    {
+        if(gameRepository.existsById(gameId))
+        {
+            gameRepository.deleteById(gameId);
+            return new ResponseEntity<>("Game deleted successfully!",HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>("Game not found / Impossible to delete",HttpStatus.BAD_REQUEST);
     }
 }
