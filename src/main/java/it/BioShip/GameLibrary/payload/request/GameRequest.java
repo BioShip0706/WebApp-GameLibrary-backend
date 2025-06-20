@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 public class GameRequest
@@ -36,7 +37,7 @@ public class GameRequest
 
     private String imageURL;
 
-    private List<Long> platformsIds; //lista di Long perchè serve solo l'id della piattaforma o del genere
+    private Set<Long> platformsIds; //lista di Long perchè serve solo l'id della piattaforma o del genere
 
-    private List<Long> genresIds;
+    private Set<Long> genresIds;
 }

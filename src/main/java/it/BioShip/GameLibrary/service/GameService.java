@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -71,14 +72,16 @@ public class GameService
         newGame.setScore(gameRequest.getScore());
         newGame.setImageURL(gameRequest.getImageURL());
 
-        Set<Platform> platformList = (Set<Platform>) platformRepository.findAllById(gameRequest.getPlatformsIds()); //Game vuole oggetti Platform, che ottengo dal repository passandogli tutti gli id messi nella request
+        Set<Platform> platformList = new HashSet<>(platformRepository.findAllById(gameRequest.getPlatformsIds())); //Game vuole oggetti Platform, che ottengo dal repository passandogli tutti gli id messi nella request
         newGame.setPlatforms(platformList);
 
-        Set<Genre> genreList = (Set<Genre>) genreRepository.findAllById(gameRequest.getGenresIds());
+        Set<Genre> genreList = new HashSet<>(genreRepository.findAllById(gameRequest.getGenresIds()));
         newGame.setGenres(genreList);
 
+        gameRepository.save(newGame);
 
-        return new ResponseEntity<>(newGame,HttpStatus.OK);
+
+        return new ResponseEntity<>(newGame.getId(),HttpStatus.OK);
     }
 
 
@@ -172,4 +175,35 @@ public class GameService
 
         return new ResponseEntity<>("Game not found / Impossible to delete",HttpStatus.BAD_REQUEST);
     }
+
+    public ResponseEntity<?> editGameById(long gameId, GameRequest gameRequest)
+    {
+        if(gameRepository.existsById(gameId))
+        {
+            Game specificGame = gameRepository.findById(gameId).orElseThrow();
+
+            specificGame.setTitle(gameRequest.getTitle());
+            specificGame.setDescription(gameRequest.getDescription());
+            specificGame.setDeveloper(gameRequest.getDeveloper());
+            specificGame.setPublisher(gameRequest.getPublisher());
+            specificGame.setReleaseDate(gameRequest.getReleaseDate());
+            specificGame.setScore(gameRequest.getScore());
+            specificGame.setImageURL(gameRequest.getImageURL());
+
+            Set<Platform> platforms = new HashSet<>(platformRepository.findAllById(gameRequest.getPlatformsIds()));
+            Set<Genre> genres = new HashSet<>(genreRepository.findAllById(gameRequest.getGenresIds()));
+
+
+            specificGame.setPlatforms(platforms);
+            specificGame.setGenres(genres);
+
+            gameRepository.save(specificGame);
+
+            return new ResponseEntity<>("Game successfully edited!",HttpStatus.OK);
+
+        }
+
+        return new ResponseEntity<>("Game doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+
 }

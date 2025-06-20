@@ -1,5 +1,6 @@
 package it.BioShip.GameLibrary.controller;
 
+import it.BioShip.GameLibrary.entity.Game;
 import it.BioShip.GameLibrary.payload.request.GameRequest;
 import it.BioShip.GameLibrary.repository.GameRepository;
 import it.BioShip.GameLibrary.service.GameService;
@@ -62,10 +63,18 @@ public class GameController
     }
 
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/addNewGame")
     public ResponseEntity<?> addNewGame(@RequestBody GameRequest gameRequest)
     {
         return gameService.addNewGame(gameRequest);
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/editGameById")
+    public ResponseEntity<?> editGameById(@RequestParam long gameId, @RequestBody GameRequest gameRequest)
+    {
+        return gameService.editGameById(gameId, gameRequest);
     }
 
     @GetMapping("/filterGames")
