@@ -64,4 +64,11 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.releaseDate,g.imageURL,g.score) FROM Game g")
     Page<GameCardResponse> getAllGameCardsByPage(Pageable pageable);
+
+    boolean existsByTitle(String title);
+
+    boolean existsByTitleAndIdNot(String title, long gameId);
+
+    @Query("SELECT g.id FROM Game g WHERE g.title = :title")
+    Long getGameIdByTitle(String title);
 }

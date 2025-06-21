@@ -48,11 +48,11 @@ public class GameController
         return gameService.getGameById(gameId);
     }
 
-    @GetMapping("/getAllFavoriteGames")
+    /*@GetMapping("/getAllFavoriteGames")
     public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
     {
         return gameService.getAllFavoriteGames(userId);
-    }
+    }*/
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("deleteGameById")
@@ -75,6 +75,12 @@ public class GameController
     public ResponseEntity<?> editGameById(@RequestParam long gameId, @RequestBody GameRequest gameRequest)
     {
         return gameService.editGameById(gameId, gameRequest);
+    }
+
+    @GetMapping("getGameIdByTitle")
+    public ResponseEntity<?> getGameIdByTitle(@RequestParam String title)
+    {
+        return gameService.getGameIdByTitle(title);
     }
 
     @GetMapping("/filterGames")

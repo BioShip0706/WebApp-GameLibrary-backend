@@ -8,6 +8,7 @@ import it.BioShip.GameLibrary.payload.request.GameRequest;
 import it.BioShip.GameLibrary.payload.response.GameCardResponse;
 import it.BioShip.GameLibrary.payload.response.GameFullResponse;
 import it.BioShip.GameLibrary.payload.response.GameSearchResponse;
+import it.BioShip.GameLibrary.repository.FavoriteRepository;
 import it.BioShip.GameLibrary.repository.GameRepository;
 import it.BioShip.GameLibrary.repository.GenreRepository;
 import it.BioShip.GameLibrary.repository.PlatformRepository;
@@ -37,6 +38,7 @@ public class GameService
     private final GameRepository gameRepository;
     private final PlatformRepository platformRepository;
     private final GenreRepository genreRepository;
+    private final FavoriteRepository favoriteRepository;
 
 
     /*@Transactional
@@ -49,7 +51,7 @@ public class GameService
         return new ResponseEntity<>(gameCards,HttpStatus.OK);
     }*/
 
-    @Transactional
+    /*@Transactional
     public ResponseEntity<?> getAllFavoriteGames(@RequestParam int userId)
     {
         //List<Game> allGames = gameRepository.findAll(); //gameRepository.findAll() mi servono
@@ -57,11 +59,17 @@ public class GameService
 
         List<GameCardResponse> getAllFavoriteGames = gameRepository.findAllFavoriteGames(userId);
         return new ResponseEntity<>(getAllFavoriteGames,HttpStatus.OK);
-    }
+    }*/
 
     @Transactional
     public ResponseEntity<?> addNewGame(GameRequest gameRequest)
     {
+
+        if(gameRepository.existsByTitle(gameRequest.getTitle()))
+        {
+            return new ResponseEntity<>("A game with this name already exists!", HttpStatus.BAD_REQUEST);
+        }
+
         Game newGame = new Game();
 
         newGame.setTitle(gameRequest.getTitle());
@@ -165,8 +173,13 @@ public class GameService
     }
 
 
+    @Transactional
     public ResponseEntity<?> deleteGameById(long gameId)
     {
+        if(favoriteRepository.existsByFavoriteIdGameId(gameId))
+        {
+            favoriteRepository.deleteByGameId(gameId);
+        }
         if(gameRepository.existsById(gameId))
         {
             gameRepository.deleteById(gameId);
@@ -178,6 +191,16 @@ public class GameService
 
     public ResponseEntity<?> editGameById(long gameId, GameRequest gameRequest)
     {
+        /*if(gameRepository.existsByTitle(gameRequest.getTitle()))
+        {
+            return new ResponseEntity<>("A game with this name already exists!", HttpStatus.BAD_REQUEST);
+        }*/
+
+        if(gameRepository.existsByTitleAndIdNot(gameRequest.getTitle(),gameId)) //Se edito Zelda cambiando anche solo il titolo posso farlo. A patto che l'id del gioco che sto editando sia quello
+        {
+            return new ResponseEntity<>("A game with this name already exists!", HttpStatus.BAD_REQUEST);
+        }
+
         if(gameRepository.existsById(gameId))
         {
             Game specificGame = gameRepository.findById(gameId).orElseThrow();
@@ -204,6 +227,18 @@ public class GameService
         }
 
         return new ResponseEntity<>("Game doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<?> getGameIdByTitle(String title)
+    {
+        if(!gameRepository.existsByTitle(title))
+        {
+            return new ResponseEntity<>("Game not existing", HttpStatus.BAD_REQUEST);
+        }
+
+        Long existingGameId = gameRepository.getGameIdByTitle(title); //prendo il primo, non mi servono gli altri
+
+        return new ResponseEntity<>(existingGameId,HttpStatus.OK);
     }
 
 }

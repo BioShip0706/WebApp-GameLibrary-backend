@@ -4,6 +4,7 @@ package it.BioShip.GameLibrary.controller;
 import it.BioShip.GameLibrary.service.PlatformService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,7 @@ public class PlatformController
         return platformService.getAllPlatforms();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/addNewPlatform")
     public ResponseEntity<?> addNewPlatform(@RequestParam String name)
     {

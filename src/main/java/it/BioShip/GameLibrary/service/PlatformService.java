@@ -18,8 +18,9 @@ public class PlatformService
 
     public ResponseEntity<?> getAllPlatforms()
     {
-        return new ResponseEntity<>(platformRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(platformRepository.findAll(), HttpStatus.OK); //RITORNARE IN ORDINE ALFABETICO
     }
+
 
     @Transactional
     public ResponseEntity<?> addNewPlatform(String name)

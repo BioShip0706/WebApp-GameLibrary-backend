@@ -5,6 +5,7 @@ import it.BioShip.GameLibrary.service.GameService;
 import it.BioShip.GameLibrary.service.GenreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ public class GenreController
         return genreService.getAllGenres();
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/addNewGenre")
     public ResponseEntity<?> addNewGenre(@RequestParam String name)
     {
