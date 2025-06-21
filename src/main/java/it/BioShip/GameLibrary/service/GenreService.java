@@ -16,7 +16,9 @@ public class GenreService
 
     public ResponseEntity<?> getAllGenres()
     {
-        return new ResponseEntity<>(genreRepository.findAll(), HttpStatus.OK); //RITORNARE IN ORDINE ALFABETICO
+        //return new ResponseEntity<>(genreRepository.findAll(), HttpStatus.OK); //RITORNARE IN ORDINE ALFABETICO
+
+        return new ResponseEntity<>(genreRepository.findAllByOrderByNameAsc(), HttpStatus.OK);
     }
 
     @Transactional
