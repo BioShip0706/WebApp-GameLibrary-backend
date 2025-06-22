@@ -34,7 +34,7 @@ public class FavoriteService
         String token = jwtService.extractTokenFromRequest(request);
         int tokenUserId = jwtService.extractUserId(token);
         Set<Long> favoriteGamesIds = new HashSet<>();
-        if(tokenUserId == userId)
+        if(tokenUserId == userId) //non necessario, potevo solo passare l'id ottenuto dal token. (Per allenamento)
         {
             favoriteGamesIds = favoriteRepository.findByUserId(userId);
             return  new ResponseEntity<>(favoriteGamesIds, HttpStatus.OK);
@@ -52,7 +52,7 @@ public class FavoriteService
         String token = jwtService.extractTokenFromRequest(request);
         int tokenUserId = jwtService.extractUserId(token);
 
-        if(tokenUserId == gameId)
+        if(tokenUserId == userId)
         {
 
             if (gameRepository.existsById(gameId) && userRepository.existsById(userId))
@@ -81,7 +81,7 @@ public class FavoriteService
         String token = jwtService.extractTokenFromRequest(request);
         int tokenUserId = jwtService.extractUserId(token);
 
-        if(tokenUserId == gameId)
+        if(tokenUserId == userId)
         {
 
             if (gameRepository.existsById(gameId) && userRepository.existsById(userId))
