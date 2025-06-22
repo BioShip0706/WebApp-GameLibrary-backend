@@ -20,5 +20,6 @@ public interface GameRepositoryCustom
                                              String scoreOrder,
                                              String releaseDateOrder,
                                              List<Long> favoriteGameIds,
+                                             String title,
                                              Pageable pageable);
 }

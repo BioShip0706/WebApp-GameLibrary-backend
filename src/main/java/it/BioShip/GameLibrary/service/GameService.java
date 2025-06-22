@@ -93,7 +93,7 @@ public class GameService
     }
 
 
-    public ResponseEntity<?> filterGames(List<Long> genreIds, List<Long> platformIds, String scoreOrder, String releaseDateOrder, List<Long> favoriteids, int page, int perPage )
+    public ResponseEntity<?> filterGames(List<Long> genreIds, List<Long> platformIds, String scoreOrder, String releaseDateOrder, List<Long> favoriteids, String title, int page, int perPage )
     {
 
         /*if (genreIds != null && platformIds != null)
@@ -114,7 +114,7 @@ public class GameService
 
         //List<Game> filteredGames = gameRepository.findFilteredGames(genreIds,platformIds,scoreOrder,releaseDateOrder,favoriteids);
         Pageable pageable = PageRequest.of(page - 1,perPage);
-        Page<GameCardResponse> result = gameRepository.findFilteredGames(genreIds,platformIds,scoreOrder,releaseDateOrder,favoriteids,pageable);
+        Page<GameCardResponse> result = gameRepository.findFilteredGames(genreIds,platformIds,scoreOrder,releaseDateOrder,favoriteids,title,pageable);
         //return new ResponseEntity<>(filteredGames,HttpStatus.OK);
         return new ResponseEntity<>(result,HttpStatus.OK);
 

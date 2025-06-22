@@ -41,8 +41,23 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
 
     List<Game> findTop10ByTitleStartingWith(String lettere);
 
-    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id,g.title,g.developer,g.releaseDate,g.score) FROM Game g WHERE g.title LIKE CONCAT(:lettere, '%')")
+    /*@Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id,g.title,g.developer,g.releaseDate,g.score) FROM Game g WHERE g.title LIKE CONCAT(:lettere, '%')")
+    Page<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable tenResults);*/
+
+    //@Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id,g.title,g.developer,g.releaseDate,g.score) FROM Game g WHERE LOWER(CONCAT(' ', g.title, ' ')) LIKE LOWER(CONCAT('% ', :lettere, ' %'))") //FIXARE
+    //Page<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable tenResults);
+
+
+    @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id, g.title, g.developer, g.releaseDate, g.score) " +
+            "FROM Game g WHERE LOWER(g.title) LIKE LOWER(CONCAT(:lettere, '%')) " +
+            "OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere, ' %')) OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere)) " +
+            "ORDER BY CASE " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT(:lettere, '%')) THEN 1 " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere, ' %')) THEN 2 " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere)) THEN 3 " +
+            "ELSE 4 END ")
     Page<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable tenResults);
+
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.releaseDate,g.imageURL,g.score) FROM Game g")
     List<GameCardResponse> findAllGameCards();
