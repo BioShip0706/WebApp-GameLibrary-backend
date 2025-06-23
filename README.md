@@ -1,10 +1,11 @@
 <h1 align="center">Game Library - WebApp JAVA/REACT/SQL</h1> <p align="center"> <em>Webapp game library <br>Discovers games, filter or search them by title. <br>Login or register to add them to favorites<br> Login as admin to gain advanced functionalities like "Deleting, Editing or adding a game" <br>Developed using IntelliJ and Visual Studio Code</em> </p><br>
 
 <h2>Frontend Here: https://github.com/BioShip0706/Webapp-game-Library-frontend
-<br>
-<h2>YOUTUBE VIDEO 📽️ How it works:</h2>
+<br><br><br>
+<h2>📽️ How it works: https://www.youtube.com/watch?v=Otk06qY8Xok</h2>
 
-[![Watch the video](https://github.com/user-attachments/assets/aaaca383-4ace-4de6-aff4-5d38fddc8bd0)](https://youtu.be/Otk06qY8Xok?si=ewlQ17Y7GqqXZZae)
+[![Watch the video](https://github.com/user-attachments/assets/1a5573d3-a5de-4394-a816-5ea6eb8c128a)](https://youtu.be/Otk06qY8Xok?si=ewlQ17Y7GqqXZZae)
+
 
 
 
