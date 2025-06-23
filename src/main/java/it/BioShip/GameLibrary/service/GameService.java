@@ -143,7 +143,7 @@ public class GameService
         //return new ResponseEntity<>(game,HttpStatus.OK);
     }
 
-    public ResponseEntity<?> searchGame(String lettere)
+    public ResponseEntity<?> searchGame(String title)
     {
         //List<Game> games = gameRepository.findTop10ByTitleStartingWith(lettere);
 
@@ -156,7 +156,7 @@ public class GameService
         return new ResponseEntity<>(games,HttpStatus.NOT_FOUND);*/
 
         Pageable tenResults = PageRequest.of(0, 10);
-        Page<GameSearchResponse> games = gameRepository.searchGamesStartingWith(lettere, tenResults);
+        Page<GameSearchResponse> games = gameRepository.searchGamesStartingWith(title, tenResults);
 
         return new ResponseEntity<>(games.getContent(),HttpStatus.OK);
     }

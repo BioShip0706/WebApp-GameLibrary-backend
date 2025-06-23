@@ -49,14 +49,14 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
 
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id, g.title, g.developer, g.releaseDate, g.score) " +
-            "FROM Game g WHERE LOWER(g.title) LIKE LOWER(CONCAT(:lettere, '%')) " +
-            "OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere, ' %')) OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere)) " +
+            "FROM Game g WHERE LOWER(g.title) LIKE LOWER(CONCAT(:title, '%')) " +
+            "OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :title, ' %')) OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :title)) " +
             "ORDER BY CASE " +
-            "WHEN LOWER(g.title) LIKE LOWER(CONCAT(:lettere, '%')) THEN 1 " +
-            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere, ' %')) THEN 2 " +
-            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :lettere)) THEN 3 " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT(:title, '%')) THEN 1 " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :title, ' %')) THEN 2 " +
+            "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :title)) THEN 3 " +
             "ELSE 4 END ")
-    Page<GameSearchResponse> searchGamesStartingWith(String lettere, Pageable tenResults);
+    Page<GameSearchResponse> searchGamesStartingWith(String title, Pageable tenResults);
 
 
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameCardResponse(g.id,g.title,g.developer,g.releaseDate,g.imageURL,g.score) FROM Game g")

@@ -96,10 +96,10 @@ public class GameController
         return gameService.filterGames(genreIds,platformIds, scoreOrder, releaseDateOrder, favoriteIds, title, page, perPage);
     }
 
-    @GetMapping("/searchGame/{lettere}")
-    public ResponseEntity<?> searchGame(@PathVariable String lettere)
+    @GetMapping("/searchGame")
+    public ResponseEntity<?> searchGame(@RequestParam String title)
     {
-        return gameService.searchGame(lettere);
+        return gameService.searchGame(title);
     }
 
 }
