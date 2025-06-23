@@ -51,7 +51,7 @@ public interface GameRepository extends JpaRepository<Game,Long>, GameRepository
     @Query("SELECT new it.BioShip.GameLibrary.payload.response.GameSearchResponse(g.id, g.title, g.developer, g.releaseDate, g.score) " +
             "FROM Game g WHERE LOWER(g.title) LIKE LOWER(CONCAT(:title, '%')) " +
             "OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :title, ' %')) OR LOWER(g.title) LIKE LOWER(CONCAT('% ', :title)) " +
-            "ORDER BY CASE " +
+            "ORDER BY CASE " + //per le priorità dell'ordinmento
             "WHEN LOWER(g.title) LIKE LOWER(CONCAT(:title, '%')) THEN 1 " +
             "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :title, ' %')) THEN 2 " +
             "WHEN LOWER(g.title) LIKE LOWER(CONCAT('% ', :title)) THEN 3 " +

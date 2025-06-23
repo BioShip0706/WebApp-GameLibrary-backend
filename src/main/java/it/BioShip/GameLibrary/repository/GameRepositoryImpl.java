@@ -133,7 +133,7 @@ public class GameRepositoryImpl implements GameRepositoryCustom
                 Predicate endsWith = criteriaBuilder.like(lowerTitle, "% " + word);
                 Predicate containsSpaced = criteriaBuilder.like(spacedTitle, "% " + word + " %");
 
-                Predicate spacedContainsEverything = criteriaBuilder.like(spacedTitle, "% " + word + "% "); //per includere roba tipo Methaphor: Zelda: breath
+                Predicate spacedContainsEverything = criteriaBuilder.like(spacedTitle, "% " + word + "% "); //per includere roba tipo "Methaphor:"  Oppure "Zelda: breath"
 
                 /*Predicate containsColon = criteriaBuilder.like(lowerTitle, "% " + word + ":%");
                 Predicate containsPoint = criteriaBuilder.like(lowerTitle, "% " + word + ".%");
@@ -155,15 +155,21 @@ public class GameRepositoryImpl implements GameRepositoryCustom
     {
         List<Order> orders = new ArrayList<>();
 
-        if ("asc".equalsIgnoreCase(scoreOrder)) {
+        if ("asc".equalsIgnoreCase(scoreOrder))
+        {
             orders.add(criteriaBuilder.asc(root.get("score")));
-        } else if ("desc".equalsIgnoreCase(scoreOrder)) {
+        }
+        else if ("desc".equalsIgnoreCase(scoreOrder))
+        {
             orders.add(criteriaBuilder.desc(root.get("score")));
         }
 
-        if ("asc".equalsIgnoreCase(releaseDateOrder)) {
+        if ("asc".equalsIgnoreCase(releaseDateOrder))
+        {
             orders.add(criteriaBuilder.asc(root.get("releaseDate")));
-        } else if ("desc".equalsIgnoreCase(releaseDateOrder)) {
+        }
+        else if ("desc".equalsIgnoreCase(releaseDateOrder))
+        {
             orders.add(criteriaBuilder.desc(root.get("releaseDate")));
         }
 

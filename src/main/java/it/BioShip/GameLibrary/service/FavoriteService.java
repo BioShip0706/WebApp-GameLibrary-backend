@@ -63,7 +63,7 @@ public class FavoriteService
                 newFavorite.setFavoriteId(new FavoriteId(specificGame, specificUser));
 
                 favoriteRepository.save(newFavorite);
-                return new ResponseEntity<>("Gioco added to favorites!", HttpStatus.OK);
+                return new ResponseEntity<>("Game added to favorites!", HttpStatus.OK);
             }
             else
             {
