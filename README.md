@@ -18,29 +18,37 @@
     <li>Edit environment variables*.</li>
     <li>Create database <strong>gamelibrary</strong>.</li>
     <li>Run the application once.</li>
-    <li>Execute the sql file <strong>.sql</strong> in the repo folder <strong>Game Library backend</strong> to populate tables.</li>
+    <li>Execute the <strong>.sql</strong> file in the repo folder <strong>Game Library backend</strong> to populate tables.</li>
     <li>Run frontend with <strong>"npm run dev"</strong>.</li>
-    <li>Discover the games.</li>
-    <li>Search them by name. And / Or</li>
+</ol>
+
+<h2>⚙️ Functionalities:</h2>
+<ol>
+  <li>Discover the games.</li>
+  <li>
+    Search them by name. And / Or filter them by:
     <ul>
-      <li>Filter them by:
-        <ul>
-          <li>Genre</li>
-          <li>Platform</li>
-          <li>Score order</li>
-          <li>Release order</li>
-        </ul>
-      </li>
+      <li>Genre</li>
+      <li>Platform</li>
+      <li>Score order</li>
+      <li>Release order</li>
       <li>Or combine all the filters together!</li>
     </ul>
-  <br>
-   <li>Register and Login as member to add/remove games from your favorites. <br>Scroll your favorite games and filter them if you like"</li>
-   <li>Login as admin to gain advanced functionalities like "Deleting, Editing or adding a game"</li>
-     <li> Admin credentials:</li>
-        <strong>-Username:</strong> AdminUser<br>
-        <strong>-Password:</strong> adminuser</li>
-    <li>Enjoy.</li>
-
+  </li>
+  <li>
+    Register and Login as member to add/remove games from your favorites.
+    <br>Scroll your favorite games and filter them if you like.
+  </li>
+  <li>
+    Login as admin to gain advanced functionalities like deleting, editing or adding a game.
+     <br> All secured with JwtToken
+  </li>
+  <li>
+    Admin credentials:<br>
+    <strong>- Username:</strong> AdminUser<br>
+    <strong>- Password:</strong> adminuser
+  </li>
+  <li>Enjoy.</li>
 </ol>
 *DATABASE_MYSQL_HOSTNAME=localhost;DATABASE_MYSQL_NAME=gamelibrary;DATABASE_MYSQL_PASSWORD=root;DATABASE_MYSQL_PORT=3306;DATABASE_MYSQL_USERNAME=root
 
