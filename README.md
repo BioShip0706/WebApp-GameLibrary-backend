@@ -18,7 +18,7 @@
     <li>Edit environment variables*.</li>
     <li>Create database <strong>gamelibrary</strong>.</li>
     <li>Run the application once.</li>
-    <li>Execute the <strong>.sql</strong> file in the repo folder <strong>Game Library backend</strong> to populate tables.</li>
+    <li>Execute the <strong>.sql</strong> file in the <strong>Game Library backend</strong> repo folder -> src/main/java/resources/gameLibraryGithub.sql  to populate tables.</li>
     <li>Run frontend with <strong>"npm run dev"</strong>.</li>
 </ol>
 
